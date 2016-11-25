@@ -11,7 +11,24 @@
     tools:context="me.diogoaoliveira.perguntasrespostas.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Escolha sua opção:"
+        android:id="@+id/textoOpcao"/>
+
+    <Button
+        android:layout_below="@+id/textoOpcao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar Perguntas"
+        android:id="@+id/cadastroPerguntas" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Responder Questionário"
+        android:layout_below="@+id/cadastroPerguntas"
+        android:id="@+id/reponderQuestionario" />
+
+
 </RelativeLayout>
