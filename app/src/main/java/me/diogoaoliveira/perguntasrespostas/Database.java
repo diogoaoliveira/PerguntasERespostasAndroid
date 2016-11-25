@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by diogoaoliveira on 24/11/16.
  */
@@ -85,6 +88,55 @@ public class Database extends SQLiteOpenHelper {
                 " ASC";
         return db.rawQuery(query, null);
     }
+
+    public List<Pergunta> getTodasPerguntas() {
+        List<Pergunta> listaPerguntas = new ArrayList<Pergunta>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_PERGUNTAS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Pergunta pergunta = new Pergunta();
+                pergunta.setIdPergunta(Integer.parseInt(cursor.getString(0)));
+                pergunta.setDsPergunta(cursor.getString(1));
+
+                List<Resposta> respostas = getRespostasByPergunta(pergunta.getIdPergunta());
+                for (int i = 0; i < respostas.size(); i++) {
+                    pergunta.respostas.add(respostas.get(i));
+                }
+
+                // Adding contact to list
+                listaPerguntas.add(pergunta);
+            } while (cursor.moveToNext());
+        }
+
+        // return contact list
+        return listaPerguntas;
+    }
+
+    private List<Resposta> getRespostasByPergunta(int idPergunta) {
+        List<Resposta> listaRespostas = new ArrayList<Resposta>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM " + TABLE_RESPOSTAS +
+                        " WHERE " + FIELD_FK_PERGUNTA_RESPOSTA + " = ? ", new String[]{Integer.toString(idPergunta)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                Resposta resposta = new Resposta();
+                resposta.setIdResposta(Integer.parseInt(cursor.getString(0)));
+                resposta.setDsResposta(cursor.getString(1));
+                resposta.setFlCorreta(Integer.parseInt(cursor.getString(2)));
+
+                listaRespostas.add(resposta);
+            } while (cursor.moveToNext());
+        }
+        return listaRespostas;
+    }
+
 
     public Cursor getListaRespostas() {
         SQLiteDatabase db = getReadableDatabase();
