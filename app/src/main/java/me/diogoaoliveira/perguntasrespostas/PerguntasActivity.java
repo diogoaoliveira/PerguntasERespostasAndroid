@@ -1,5 +1,7 @@
 package me.diogoaoliveira.perguntasrespostas;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,7 +38,10 @@ public class PerguntasActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Toast.makeText(PerguntasActivity.this, mDB.getDefinition(id), Toast.LENGTH_SHORT).show();
-                Toast.makeText(PerguntasActivity.this, "Abrir inserção de questões!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(PerguntasActivity.this, "Id = " + id, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PerguntasActivity.this, RespostasActivity.class);
+                intent.putExtra("idPergunta", Long.toString(id));
+                startActivity(intent);
             }
         });
         atualizaListaPerguntas();
