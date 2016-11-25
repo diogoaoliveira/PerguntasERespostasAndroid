@@ -138,12 +138,28 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getListaRespostas() {
+    public Cursor getListaRespostas(String idPergunta) {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT "+ FIELD_ID_RESPOSTA +", " + FIELD_DESCRICAO_RESPOSTA +
-                " FROM " + TABLE_RESPOSTAS + " ORDER BY " + FIELD_ID_RESPOSTA +
+                " FROM " + TABLE_RESPOSTAS + " WHERE "+ FIELD_FK_PERGUNTA_RESPOSTA +" = "+ idPergunta +" ORDER BY " + FIELD_ID_RESPOSTA +
                 " ASC";
         return db.rawQuery(query, null);
     }
 
+    public boolean verificarResposta(int resposta) {
+        long returnVal = -1;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT "+ FIELD_CORRETA_RESPOSTA +" FROM " + TABLE_RESPOSTAS +
+                        " WHERE " + FIELD_ID_RESPOSTA + " = ?", new String[]{Integer.toString(resposta)});
+        if(cursor.getCount() == 1) {
+            cursor.moveToFirst();
+            returnVal = cursor.getInt(0);
+        }
+        if(returnVal == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

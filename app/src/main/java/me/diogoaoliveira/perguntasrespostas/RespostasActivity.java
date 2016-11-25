@@ -3,6 +3,7 @@ package me.diogoaoliveira.perguntasrespostas;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -55,7 +56,7 @@ public class RespostasActivity extends AppCompatActivity {
                 Toast.makeText(RespostasActivity.this, "Id = " + id, Toast.LENGTH_SHORT).show();
             }
         });
-        atualizaListaRespostas();
+        atualizaListaRespostas(idPergunta);
     }
 
     private void salvarResposta(String idPergunta) {
@@ -67,20 +68,26 @@ public class RespostasActivity extends AppCompatActivity {
         if(mEditTextResposta.getText().toString() == "" ) {
             Toast.makeText(this, "Campo está em branco!", Toast.LENGTH_SHORT).show();
         } else {
-            int correta = radioResposta.getText() == "Sim"? 1 : 0;
+            int correta;
+            String valorResposta = radioResposta.getText().toString();
+            if(valorResposta.equals("Sim")) {
+                correta = 1;
+            } else {
+                correta = 0;
+            }
             mDB.salvarResposta(mEditTextResposta.getText().toString(), correta, Integer.parseInt(idPergunta));
             mEditTextResposta.setText("");
             Toast.makeText(this, "Resposta inserida com sucesso!", Toast.LENGTH_SHORT).show();
-            atualizaListaRespostas();
+            atualizaListaRespostas(idPergunta);
         }
     }
 
-    private void atualizaListaRespostas() {
+    private void atualizaListaRespostas(String idPergunta) {
         SimpleCursorAdapter simpleCursorAdapter = new
                 SimpleCursorAdapter(
                 this,
                 android.R.layout.simple_list_item_1,
-                mDB.getListaRespostas(),
+                mDB.getListaRespostas(idPergunta),
                 new String[]{"dsResposta"},
                 new int[]{android.R.id.text1},
                 0);

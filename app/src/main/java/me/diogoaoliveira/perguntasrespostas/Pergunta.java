@@ -1,5 +1,7 @@
 package me.diogoaoliveira.perguntasrespostas;
 
+import android.widget.CheckBox;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class Pergunta {
     private int idPergunta;
     private String dsPergunta;
     public List<Resposta> respostas = new ArrayList<>();
+    public List<CheckBox> respondidos = new ArrayList<>();
 
     public void setIdPergunta(int id) {
         this.idPergunta = id;
