@@ -6,12 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
+
+    Database mDB;
+    private static final String DB_PATH = "data/data/me.diogoaoliveira.perguntasrespostas/databases/questoeserepostas.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mDB = new Database(this);
 
         Button perguntas = (Button)findViewById(R.id.cadastroPerguntas);
         Button questionario = (Button)findViewById(R.id.reponderQuestionario);
@@ -40,5 +46,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, QuestionarioActivity.class);
         startActivity(intent);
     }
+
+    //Usado para apagar o BD
+//    private void doDBCheck()
+//    {
+//        try{
+//            File file = new File(DB_PATH);
+//            file.delete();
+//        }catch(Exception ex)
+//        {}
+//    }
 
 }

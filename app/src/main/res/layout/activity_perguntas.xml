@@ -10,4 +10,40 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="me.diogoaoliveira.perguntasrespostas.PerguntasActivity">
 
+    <EditText
+        android:id="@+id/edit_pergunta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="Adicione sua pergunta" />
+
+    <TextView
+        android:id="@+id/text_adicionarRespostas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_pergunta"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Escolha sua pergunta para adicionar respostas:"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adicionar"
+        android:id="@+id/adicionarPergunta"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_below="@+id/text_adicionarRespostas"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true" />
+
 </RelativeLayout>
