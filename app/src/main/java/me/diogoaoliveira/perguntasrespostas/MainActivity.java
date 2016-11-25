@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //doDBCheck();
         mDB = new Database(this);
 
         Button perguntas = (Button)findViewById(R.id.cadastroPerguntas);
@@ -48,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Usado para apagar o BD
-//    private void doDBCheck()
-//    {
-//        try{
-//            File file = new File(DB_PATH);
-//            file.delete();
-//        }catch(Exception ex)
-//        {}
-//    }
+    private void doDBCheck()
+    {
+        try{
+            File file = new File(DB_PATH);
+            file.delete();
+        }catch(Exception ex)
+        {}
+    }
 
 }

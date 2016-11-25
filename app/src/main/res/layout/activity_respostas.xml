@@ -10,4 +10,63 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="me.diogoaoliveira.perguntasrespostas.RespostasActivity">
 
+    <EditText
+        android:id="@+id/edit_resposta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="Adicione sua resposta" />
+
+
+    <TextView
+        android:id="@+id/text_adicionarRespostas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_resposta"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="É a resposta correta ?"
+        android:layout_marginTop="10dp" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/text_adicionarRespostas" >
+
+        <RadioButton
+            android:id="@+id/radioSim"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Sim" />
+
+        <RadioButton
+            android:id="@+id/radioNao"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Não" />
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adicionar"
+        android:id="@+id/adicionarResposta"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewRespostas"
+        android:layout_below="@+id/radio_group"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true" />
+
 </RelativeLayout>

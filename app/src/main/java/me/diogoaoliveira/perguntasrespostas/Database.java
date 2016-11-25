@@ -23,10 +23,10 @@ public class Database extends SQLiteOpenHelper {
     private static final String FIELD_ID_PERGUNTA = "_id";
     private static final String FIELD_DESCRICAO_PERGUNTA = "dsPergunta";
 
-    private static final String FIELD_ID_RESPOSTA = "idResposta";
+    private static final String FIELD_ID_RESPOSTA = "_id";
     private static final String FIELD_DESCRICAO_RESPOSTA = "dsResposta";
     private static final String FIELD_CORRETA_RESPOSTA = "flCorreta";
-    private static final String FIELD_FK_PERGUNTA_RESPOSTA = "_id";
+    private static final String FIELD_FK_PERGUNTA_RESPOSTA = "idPergunta";
 
 
     private static final int DATABASE_VERSION = 1;
@@ -45,12 +45,12 @@ public class Database extends SQLiteOpenHelper {
                 "( "+ FIELD_ID_PERGUNTA +" integer PRIMARY KEY autoincrement," +
                 FIELD_DESCRICAO_PERGUNTA + " TEXT NOT NULL);");
 
-//        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_RESPOSTAS +
-//                "("+ FIELD_ID_RESPOSTA +" integer PRIMARY KEY autoincrement," +
-//                FIELD_DESCRICAO_RESPOSTA + " TEXT NOT NULL, " +
-//                FIELD_CORRETA_RESPOSTA + " integer NOT NULL, " +
-//                FIELD_FK_PERGUNTA_RESPOSTA + " integer,"
-//                + " FOREIGN KEY ("+FIELD_FK_PERGUNTA_RESPOSTA+") REFERENCES "+TABLE_PERGUNTAS+"("+FIELD_ID_PERGUNTA+"));");
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_RESPOSTAS +
+                "("+ FIELD_ID_RESPOSTA +" integer PRIMARY KEY autoincrement," +
+                FIELD_DESCRICAO_RESPOSTA + " TEXT NOT NULL, " +
+                FIELD_CORRETA_RESPOSTA + " integer NOT NULL, " +
+                FIELD_FK_PERGUNTA_RESPOSTA + " integer,"
+                + " FOREIGN KEY ("+FIELD_FK_PERGUNTA_RESPOSTA+") REFERENCES "+TABLE_PERGUNTAS+"("+FIELD_ID_PERGUNTA+"));");
 
     }
 
@@ -72,7 +72,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(FIELD_DESCRICAO_PERGUNTA, descricao);
+        values.put(FIELD_DESCRICAO_RESPOSTA, descricao);
         values.put(FIELD_CORRETA_RESPOSTA, correta);
         values.put(FIELD_FK_PERGUNTA_RESPOSTA, idPergunta);
         return db.insert(TABLE_RESPOSTAS, null, values);
@@ -81,7 +81,15 @@ public class Database extends SQLiteOpenHelper {
     public Cursor getListaPerguntas() {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT "+ FIELD_ID_PERGUNTA +", " + FIELD_DESCRICAO_PERGUNTA +
-                " FROM " + TABLE_PERGUNTAS + " ORDER BY " + FIELD_DESCRICAO_PERGUNTA +
+                " FROM " + TABLE_PERGUNTAS + " ORDER BY " + FIELD_ID_PERGUNTA +
+                " ASC";
+        return db.rawQuery(query, null);
+    }
+
+    public Cursor getListaRespostas() {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT "+ FIELD_ID_RESPOSTA +", " + FIELD_DESCRICAO_RESPOSTA +
+                " FROM " + TABLE_RESPOSTAS + " ORDER BY " + FIELD_ID_RESPOSTA +
                 " ASC";
         return db.rawQuery(query, null);
     }
